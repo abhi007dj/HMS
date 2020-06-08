@@ -12,9 +12,9 @@ namespace HMS.Services
     {
         public IEnumerable<AccomodationType> GetAllAccomodationType()
         {
-            HMSContext Context = new HMSContext();
+            HMSContext dbContext = new HMSContext();
 
-            var  data = Context.AccomodationTypes.ToList();
+            var  data = dbContext.AccomodationTypes.ToList();
 
             return data;
         }

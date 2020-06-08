@@ -1,6 +1,8 @@
 ﻿@model HMS.Areas.Dashboard.ViewModel.AccomodationTypeViewModel
 
 <hr />
+@if(Model !=null)
+{ 
     <table class="table">
         <thead>
             <tr>
@@ -18,8 +20,8 @@
                     <td>@item.Name</td>
                     <td>@item.Description</td>
                     <td>
-                        <button class=" btn btn-primary"></button>
-                        <button class="btn-danger"></button>
+                        <button type="button" class=" btn btn-primary">Edit</button>
+                        <button type="button" class="btn-danger">Delete</button>
 
                     </td>
                 }
@@ -28,3 +30,11 @@
 
         </tbody>
     </table>
+}
+else { 
+<div class="alert alert-warning" role="alert" >
+    Sorry! No result found
+
+</div>
+
+}
