@@ -27,5 +27,11 @@ namespace HMS.Areas.Dashboard.Controllers
             return PartialView("_Listing", objAccomodationTypeViewModel);
         }
 
+
+        public ActionResult Action()
+        {
+            AccomodationTypeActionViewModel modal = new AccomodationTypeActionViewModel();
+            return PartialView("_Action", modal);
+        }
     }
 }

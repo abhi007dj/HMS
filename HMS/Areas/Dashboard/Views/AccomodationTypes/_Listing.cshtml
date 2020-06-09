@@ -1,7 +1,7 @@
 ﻿@model HMS.Areas.Dashboard.ViewModel.AccomodationTypeViewModel
 
-<hr />
-@if(Model !=null)
+
+@if(Model !=null && Model.AccomodationTypes!=null && Model.AccomodationTypes.Count()>0)
 { 
     <table class="table">
         <thead>
