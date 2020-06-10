@@ -3,30 +3,32 @@
 
 @if(Model !=null && Model.AccomodationTypes!=null && Model.AccomodationTypes.Count()>0)
 { 
-    <table class="table">
+    <table class="table table-bordered">
         <thead>
             <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Description</th>
-                <th scope="col">Action</th>
+                <th scope="col" width="20%">Name</th>
+                <th scope="col" width="50%">Description</th>
+                <th scope="col" width="20%">Action</th>
             </tr>
         </thead>
         <tbody>
             
-            <tr>
+         
                 @foreach (var item in Model.AccomodationTypes)
                 {
+            <tr>
 
-                    <td>@item.Name</td>
-                    <td>@item.Description</td>
-                    <td>
-                        <button type="button" class=" btn btn-primary">Edit</button>
-                        <button type="button" class="btn-danger">Delete</button>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>
+                    <button type="button" class=" btn btn-primary " style="width:70px">Edit</button>
+                    <button type="button" class=" btn btn-danger">Delete</button>
 
-                    </td>
+                </td>
+            </tr>
                 }
 
-            </tr>
+           
 
         </tbody>
     </table>

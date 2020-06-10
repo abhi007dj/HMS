@@ -18,6 +18,14 @@ namespace HMS.Services
 
             return data;
         }
+        public bool SaveAccomodationType(AccomodationType accomodationType)
+        {
+            HMSContext dbContext = new HMSContext();
+
+            dbContext.AccomodationTypes.Add(accomodationType);
+
+            return dbContext.SaveChanges()>0;
+        }
 
 
     }

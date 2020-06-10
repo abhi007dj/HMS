@@ -9,19 +9,49 @@
         </button>
     </div>
     <div class="modal-body">
-        <form>
+        <form id="actionform">
             <div class="form-group">
                 <label for="Name" class="col-form-label">Name:</label>
-                <input type="text" class="form-control" placeholder="Enter name" id="Name">
+                <input type="text" class="form-control" placeholder="Enter name" name="Name" id="Name">
             </div>
             <div class="form-group">
                 <label for="Description" class="col-form-label">Description:</label>
-                <textarea class="form-control" id="Description" placeholder="Enter Description" ></textarea>
+                <textarea class="form-control" name="Description" id="Description" placeholder="Enter Description"></textarea>
             </div>
         </form>
+        <div class="errordiv">
+
+
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save</button>
+        <button id="btnSave" type="button" class="btn btn-primary">Save</button>
     </div>
 </div>
+<script>   
+    $('#btnSave').click(function () {
+
+        $.ajax({
+
+            url: '@Url.Action("Action", "AccomodationTypes")', 
+            type:"post",
+            data: $('#actionform').serialize(),
+            
+        })
+      //  location.reload();
+             //reload page after clicking save button
+
+        .done(function (response) {
+                if (response.Success)
+                {
+                    location.reload();
+
+                }
+                else {
+                    $('.errordiv').html(response.Message);
+                }
+            });
+
+});
+</script>
