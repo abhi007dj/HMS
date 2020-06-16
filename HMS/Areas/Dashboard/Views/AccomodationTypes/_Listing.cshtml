@@ -3,7 +3,7 @@
 
 @if(Model !=null && Model.AccomodationTypes!=null && Model.AccomodationTypes.Count()>0)
 { 
-    <table class="table table-bordered">
+    <table class="table table-bordered table-hover">
         <thead>
             <tr>
                 <th scope="col" width="20%">Name</th>
@@ -21,8 +21,14 @@
                 <td>@item.Name</td>
                 <td>@item.Description</td>
                 <td>
-                    <button type="button" class=" btn btn-primary " style="width:70px">Edit</button>
-                    <button type="button" class=" btn btn-danger">Delete</button>
+                    <button type="button"data-toggle="modal" data-target="#actionmodal" data-href="@Url.Action("Action", "AccomodationTypes",new {Id=item.Id})" class=" btn btn-primary databtn " style="width:100px">
+                        <i class="fa fa-pencil mr-1" aria-hidden="true"></i>Edit
+
+                    </button>
+                    <button type="button" class=" btn btn-danger databtn" data-toggle="modal" data-target="#actionmodal" data-href="@Url.Action("Delete", "AccomodationTypes",new {Id=item.Id})"  style="width:100px">
+                        <i class="fa fa-trash-o mr-1" aria-hidden="true"></i>Delete
+
+                    </button>
 
                 </td>
             </tr>

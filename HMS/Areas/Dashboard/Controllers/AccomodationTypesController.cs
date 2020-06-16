@@ -14,6 +14,8 @@ namespace HMS.Areas.Dashboard.Controllers
     {
 
         AccomodationTypesService objAccomodationTypesService = new AccomodationTypesService();
+        AccomodationType accomodationType = new AccomodationType();
+
         // GET: Dashboard/AccomodatioTypes
         public ActionResult Index()
         {
@@ -30,25 +32,49 @@ namespace HMS.Areas.Dashboard.Controllers
         }
 
         [HttpGet]
-        public ActionResult Action()
+        public ActionResult Action(int? Id)
         {
-            AccomodationTypeActionViewModel modal = new AccomodationTypeActionViewModel();
-            return PartialView("_Action", modal);
+            AccomodationTypeActionViewModel objAccomodationTypeActionViewModel = new AccomodationTypeActionViewModel();
+
+            if (Id.HasValue)  //we are tyring to edit
+            {
+                var data = objAccomodationTypesService.GeAccomodationTypeById(Id.Value);
+                objAccomodationTypeActionViewModel.Id = data.Id;
+                objAccomodationTypeActionViewModel.Name = data.Name;
+                objAccomodationTypeActionViewModel.Description = data.Description;
+
+            }
+
+            return PartialView("_Action", objAccomodationTypeActionViewModel);
         }
 
         [HttpPost]
         public JsonResult Action(AccomodationTypeActionViewModel modal)
         {
             JsonResult Json = new JsonResult();
-
+            var result = false;
             AccomodationTypesService objAccomodationTypesService = new AccomodationTypesService();
 
-            AccomodationType objAccomodationType = new AccomodationType();
-            objAccomodationType.Name = modal.Name;
-            objAccomodationType.Description = modal.Description;
+            if (modal.Id>0)  //we are tyring to edit
+            {
+                var data = objAccomodationTypesService.GeAccomodationTypeById(modal.Id);
 
+            //    data.Id = modal.Id;
 
-            var result = objAccomodationTypesService.SaveAccomodationType(objAccomodationType);
+                data.Name = modal.Name;
+                data.Description = modal.Description;
+
+                result = objAccomodationTypesService.UpdateAccomodationType(data);
+
+            }
+            else
+            {
+                accomodationType.Name = modal.Name;
+                accomodationType.Description = modal.Description;
+                 result = objAccomodationTypesService.SaveAccomodationType(accomodationType);
+
+            }
+           
 
             if (result)
             {
@@ -57,6 +83,52 @@ namespace HMS.Areas.Dashboard.Controllers
             else
             {
                 Json.Data = new { Success = false,Message ="Unable to save" };
+
+
+            }
+
+            return Json;
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int? Id)
+        {
+            AccomodationTypeActionViewModel objAccomodationTypeActionViewModel = new AccomodationTypeActionViewModel();
+
+            if (Id.HasValue)  //we are tyring to edit
+            {
+                var data = objAccomodationTypesService.GeAccomodationTypeById(Id.Value);
+                objAccomodationTypeActionViewModel.Id = data.Id;
+
+            }
+
+            return PartialView("_Delete", objAccomodationTypeActionViewModel);
+        }
+
+
+        [HttpPost]
+        public JsonResult Delete(AccomodationTypeActionViewModel modal)
+        {
+            JsonResult Json = new JsonResult();
+            var result = false;
+            AccomodationTypesService objAccomodationTypesService = new AccomodationTypesService();
+
+            
+                var data = objAccomodationTypesService.GeAccomodationTypeById(modal.Id);
+
+                //    data.Id = modal.Id;
+
+                result = objAccomodationTypesService.DeleteAccomodationType(data);
+
+          
+
+            if (result)
+            {
+                Json.Data = new { Success = true };
+            }
+            else
+            {
+                Json.Data = new { Success = false, Message = "Unable to Delete" };
 
 
             }

@@ -14,9 +14,12 @@ namespace HMS
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+              //  Areas:"Dashboard",
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                              //  defaults: new { controller = "AccomodationTypes", action = "Listing", id = UrlParameter.Optional }
+                              defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+
             );
         }
     }

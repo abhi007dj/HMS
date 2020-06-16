@@ -1,0 +1,65 @@
+﻿@model HMS.Areas.Dashboard.ViewModel.AccomodationTypeActionViewModel
+
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          
+            <span>  Delete Accomodation Type</span>
+
+           
+        </h5>
+
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form id="actionform">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <div class="alert-danger modal-header font-weight-bold">
+                Do You Really want to delete?
+            </div>
+        </form>
+        <div class="errordiv">
+
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <i class="fa fa-times mr-1" aria-hidden="true"></i>
+            Close
+        </button>
+        <button id="btnSave" type="button" class="btn btn-danger"> <i class="fa fa-trash-o mr-1" aria-hidden="true"></i>Delete</button>
+    </div>
+</div>
+<script>
+
+    $('#btnSave').click(function () {
+
+        $.ajax({
+
+            url: '@Url.Action("Delete", "AccomodationTypes")',
+            type:"post",
+            data: $('#actionform').serialize(),
+
+        })
+      //  location.reload();
+             //reload page after clicking save button
+
+        .done(function (response) {
+                if (response.Success)
+                {
+                    location.reload();
+
+                }
+                else {
+                    $('.errordiv').html(response.Message);
+                }
+            });
+
+});
+</script>
+
